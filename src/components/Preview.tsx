@@ -1,5 +1,6 @@
 import { useAtom } from "jotai";
-import { useEffect, useRef } from "react";
+import { Move, X } from "lucide-react";
+import { useLayoutEffect, useRef, useState } from "react";
 import Draggable from "react-draggable";
 import { editorValueAtom } from "~/common/atoms";
 
@@ -9,6 +10,7 @@ const scriptId = "phaser-example-script";
 export const Preview = () => {
   const [editorValue] = useAtom(editorValueAtom);
   const ref = useRef<HTMLDivElement>(null);
+  const [show, setShow] = useState(true);
 
   const removeDiv = () => {
     const oldD = document.getElementById(divId);
@@ -23,8 +25,6 @@ export const Preview = () => {
   const createDiv = () => {
     const d = document.createElement("div");
     d.setAttribute("id", divId);
-    d.draggable = true;
-    d.setAttribute("style", "height:100vh;position:fixed;bottom:0;right:0");
     ref.current?.appendChild(d);
   };
 
@@ -35,7 +35,7 @@ export const Preview = () => {
     document.body.appendChild(s);
   };
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (editorValue) {
       removeScript();
       removeDiv();
@@ -44,11 +44,26 @@ export const Preview = () => {
     }
   }, [editorValue]);
 
+  if (!show) return null;
+
   return (
-    <Draggable defaultClassNameDragging="opacity-50 transition-opacity">
-      <div ref={ref} className="fixed right-0 bottom-0 z-10 cursor-move">
-        <div className="absolute left-0 top-0 bg-white/20 cursor-pointer">
-          close
+    <Draggable handle="strong">
+      <div className="fixed right-0 bottom-0 z-10 bg-white">
+        <div className="relative w-full h-full">
+          <strong className="cursor-move absolute left-0 -top-10 w-full bg-white h-10 flex justify-between items-center">
+            <div className="cursor-pointer hover:bg-indigo-500 transition-all">
+              <Move className="w-10 h-10 p-2" />
+            </div>
+            <div
+              className="cursor-pointer hover:bg-red-500 transition-all"
+              onClick={() => {
+                setShow(!show);
+              }}
+            >
+              <X className="w-10 h-10 p-2" />
+            </div>
+          </strong>
+          <div ref={ref} />
         </div>
       </div>
     </Draggable>

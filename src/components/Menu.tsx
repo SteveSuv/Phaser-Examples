@@ -127,7 +127,7 @@ const Search = () => {
 
 export const Menu = () => {
   return (
-    <div className="w-[400px] h-screen overflow-auto border-r-8 border-indigo-400">
+    <div className="w-[400px] h-screen overflow-auto border-r-8 border-indigo-500">
       <Search />
       <MenuList directoryPath="./examples" />
     </div>
