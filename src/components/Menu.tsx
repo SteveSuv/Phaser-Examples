@@ -7,6 +7,7 @@ import {
   openDirectoryAtom,
   scriptTextAtom,
   searchTextAtom,
+  showPreviewAtom,
 } from "~/common/atoms";
 import { fileMap } from "~/common/fileMap";
 
@@ -20,6 +21,7 @@ const FileItem = ({
   const [activeFilePath, setActiveFilePath] = useAtom(activeFilePathAtom);
   const [_, setScriptText] = useAtom(scriptTextAtom);
   const [searchText] = useAtom(searchTextAtom);
+  const [__, setShowPreview] = useAtom(showPreviewAtom);
 
   useEffect(() => {
     if (activeFilePath) {
@@ -41,6 +43,7 @@ const FileItem = ({
       className="py-2 px-4 hover:bg-indigo-100 cursor-pointer font-Merriweather flex flex-col gap-2 text-lg"
       onClick={() => {
         setActiveFilePath(fullPath);
+        setShowPreview(true);
       }}
     >
       <img

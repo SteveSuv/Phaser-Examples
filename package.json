@@ -5,7 +5,7 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "preview": "vite preview",
-    "fmt": "prettier -w ."
+    "fmt": "prettier -w ./src"
   },
   "dependencies": {
     "@fontsource/merriweather": "^5.0.13",
